@@ -1,43 +1,368 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Element Viewer</title>
   <style>
     body {
-      font-family: sans-serif;
-      padding: 2rem;
-      background: #f8f9fa;
-    }
-    h1 {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background-color: #f7f7f7;
       color: #333;
     }
-    ul {
-      list-style: none;
-      padding: 0;
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
     }
-    li {
-      margin: 10px 0;
+    .button-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
     }
-    a {
+    .element-button {
+      padding: 10px 20px;
+      font-size: 14px;
+      border: 2px solid #4a90e2;
+      background-color: white;
+      color: #4a90e2;
+      border-radius: 6px;
       text-decoration: none;
-      color: #0066cc;
-      font-weight: bold;
+      transition: all 0.3s ease;
     }
-    a:hover {
-      text-decoration: underline;
+    .element-button:hover {
+      background-color: #4a90e2;
+      color: white;
     }
   </style>
 </head>
 <body>
   <h1>Element Viewer</h1>
-  <ul>
-    <li><a href="Aluminum_0/index.html">Aluminum_0</a></li>
-    <li><a href="Aluminum_1/index.html">Aluminum_1</a></li>
-    <li><a href="Aluminum_2/index.html">Aluminum_2</a></li>
-    <li><a href="Aluminum_3/index.html">Aluminum_3</a></li>
-    <li><a href="Aluminum_4/index.html">Aluminum_4</a></li>
-    <li><a href="Antimony/index.html">Antimony</a></li>
-  </ul>
+  <div class="button-container">
+    <a class="element-button" href="Helium">Helium</a>
+    <a class="element-button" href="Lithium">Lithium</a>
+    <a class="element-button" href="Beryllium">Beryllium</a>
+    <a class="element-button" href="Boron">Boron</a>
+    <a class="element-button" href="Carbon">Carbon</a>
+    <a class="element-button" href="Nitrogen">Nitrogen</a>
+    <a class="element-button" href="Oxygen">Oxygen</a>
+    <a class="element-button" href="Fluorine">Fluorine</a>
+    <a class="element-button" href="Neon">Neon</a>
+    <a class="element-button" href="Sodium_0">Sodium_0</a>
+    <a class="element-button" href="Sodium_1">Sodium_1</a>
+    <a class="element-button" href="Sodium_2">Sodium_2</a>
+    <a class="element-button" href="Sodium_3">Sodium_3</a>
+    <a class="element-button" href="Magnesium_0">Magnesium_0</a>
+    <a class="element-button" href="Magnesium_1">Magnesium_1</a>
+    <a class="element-button" href="Magnesium_2">Magnesium_2</a>
+    <a class="element-button" href="Aluminum_0">Aluminum_0</a>
+    <a class="element-button" href="Aluminum_1">Aluminum_1</a>
+    <a class="element-button" href="Aluminum_2">Aluminum_2</a>
+    <a class="element-button" href="Aluminum_3">Aluminum_3</a>
+    <a class="element-button" href="Aluminum_4">Aluminum_4</a>
+    <a class="element-button" href="Silicon_0">Silicon_0</a>
+    <a class="element-button" href="Silicon_1">Silicon_1</a>
+    <a class="element-button" href="Silicon_2">Silicon_2</a>
+    <a class="element-button" href="Silicon_3">Silicon_3</a>
+    <a class="element-button" href="Silicon_4">Silicon_4</a>
+    <a class="element-button" href="Phosphorus_0">Phosphorus_0</a>
+    <a class="element-button" href="Phosphorus_1">Phosphorus_1</a>
+    <a class="element-button" href="Phosphorus_2">Phosphorus_2</a>
+    <a class="element-button" href="Phosphorus_3">Phosphorus_3</a>
+    <a class="element-button" href="Phosphorus_4">Phosphorus_4</a>
+    <a class="element-button" href="Phosphorus_5">Phosphorus_5</a>
+    <a class="element-button" href="Sulfur_0">Sulfur_0</a>
+    <a class="element-button" href="Sulfur_1">Sulfur_1</a>
+    <a class="element-button" href="Sulfur_2">Sulfur_2</a>
+    <a class="element-button" href="Chlorine_0">Chlorine_0</a>
+    <a class="element-button" href="Chlorine_1">Chlorine_1</a>
+    <a class="element-button" href="Chlorine_2">Chlorine_2</a>
+    <a class="element-button" href="Chlorine_3">Chlorine_3</a>
+    <a class="element-button" href="Chlorine_4">Chlorine_4</a>
+    <a class="element-button" href="Chlorine_5">Chlorine_5</a>
+    <a class="element-button" href="Chlorine_6">Chlorine_6</a>
+    <a class="element-button" href="Argon_0">Argon_0</a>
+    <a class="element-button" href="Argon_1">Argon_1</a>
+    <a class="element-button" href="Argon_2">Argon_2</a>
+    <a class="element-button" href="Argon_3">Argon_3</a>
+    <a class="element-button" href="Argon_4">Argon_4</a>
+    <a class="element-button" href="Argon_5">Argon_5</a>
+    <a class="element-button" href="Argon_6">Argon_6</a>
+    <a class="element-button" href="Potassium_0">Potassium_0</a>
+    <a class="element-button" href="Potassium_1">Potassium_1</a>
+    <a class="element-button" href="Potassium_2">Potassium_2</a>
+    <a class="element-button" href="Potassium_3">Potassium_3</a>
+    <a class="element-button" href="Potassium_4">Potassium_4</a>
+    <a class="element-button" href="Potassium_5">Potassium_5</a>
+    <a class="element-button" href="Potassium_6">Potassium_6</a>
+    <a class="element-button" href="Potassium_7">Potassium_7</a>
+    <a class="element-button" href="Potassium_8">Potassium_8</a>
+    <a class="element-button" href="Calcium_0">Calcium_0</a>
+    <a class="element-button" href="Calcium_1">Calcium_1</a>
+    <a class="element-button" href="Calcium_2">Calcium_2</a>
+    <a class="element-button" href="Scandium_0">Scandium_0</a>
+    <a class="element-button" href="Scandium_1">Scandium_1</a>
+    <a class="element-button" href="Scandium_2">Scandium_2</a>
+    <a class="element-button" href="Scandium_3">Scandium_3</a>
+    <a class="element-button" href="Scandium_4">Scandium_4</a>
+    <a class="element-button" href="Scandium_5">Scandium_5</a>
+    <a class="element-button" href="Scandium_6">Scandium_6</a>
+    <a class="element-button" href="Titanium_0">Titanium_0</a>
+    <a class="element-button" href="Titanium_1">Titanium_1</a>
+    <a class="element-button" href="Titanium_2">Titanium_2</a>
+    <a class="element-button" href="Titanium_3">Titanium_3</a>
+    <a class="element-button" href="Titanium_4">Titanium_4</a>
+    <a class="element-button" href="Titanium_5">Titanium_5</a>
+    <a class="element-button" href="Titanium_6">Titanium_6</a>
+    <a class="element-button" href="Titanium_7">Titanium_7</a>
+    <a class="element-button" href="Titanium_8">Titanium_8</a>
+    <a class="element-button" href="Vanadium_0">Vanadium_0</a>
+    <a class="element-button" href="Vanadium_1">Vanadium_1</a>
+    <a class="element-button" href="Vanadium_2">Vanadium_2</a>
+    <a class="element-button" href="Vanadium_3">Vanadium_3</a>
+    <a class="element-button" href="Vanadium_4">Vanadium_4</a>
+    <a class="element-button" href="Vanadium_5">Vanadium_5</a>
+    <a class="element-button" href="Vanadium_6">Vanadium_6</a>
+    <a class="element-button" href="Chromium_0">Chromium_0</a>
+    <a class="element-button" href="Chromium_1">Chromium_1</a>
+    <a class="element-button" href="Chromium_2">Chromium_2</a>
+    <a class="element-button" href="Chromium_3">Chromium_3</a>
+    <a class="element-button" href="Chromium_4">Chromium_4</a>
+    <a class="element-button" href="Chromium_5">Chromium_5</a>
+    <a class="element-button" href="Chromium_6">Chromium_6</a>
+    <a class="element-button" href="Manganese_0">Manganese_0</a>
+    <a class="element-button" href="Manganese_1">Manganese_1</a>
+    <a class="element-button" href="Manganese_2">Manganese_2</a>
+    <a class="element-button" href="Manganese_3">Manganese_3</a>
+    <a class="element-button" href="Manganese_4">Manganese_4</a>
+    <a class="element-button" href="Manganese_5">Manganese_5</a>
+    <a class="element-button" href="Manganese_6">Manganese_6</a>
+    <a class="element-button" href="Manganese_7">Manganese_7</a>
+    <a class="element-button" href="Manganese_8">Manganese_8</a>
+    <a class="element-button" href="Manganese_9">Manganese_9</a>
+    <a class="element-button" href="Iron_0">Iron_0</a>
+    <a class="element-button" href="Iron_1">Iron_1</a>
+    <a class="element-button" href="Iron_2">Iron_2</a>
+    <a class="element-button" href="Iron_3">Iron_3</a>
+    <a class="element-button" href="Iron_4">Iron_4</a>
+    <a class="element-button" href="Iron_5">Iron_5</a>
+    <a class="element-button" href="Iron_6">Iron_6</a>
+    <a class="element-button" href="Iron_7">Iron_7</a>
+    <a class="element-button" href="Iron_8">Iron_8</a>
+    <a class="element-button" href="Iron_9">Iron_9</a>
+    <a class="element-button" href="Cobalt_0">Cobalt_0</a>
+    <a class="element-button" href="Cobalt_1">Cobalt_1</a>
+    <a class="element-button" href="Cobalt_2">Cobalt_2</a>
+    <a class="element-button" href="Cobalt_3">Cobalt_3</a>
+    <a class="element-button" href="Cobalt_4">Cobalt_4</a>
+    <a class="element-button" href="Cobalt_5">Cobalt_5</a>
+    <a class="element-button" href="Cobalt_6">Cobalt_6</a>
+    <a class="element-button" href="Cobalt_7">Cobalt_7</a>
+    <a class="element-button" href="Nickel_0">Nickel_0</a>
+    <a class="element-button" href="Nickel_1">Nickel_1</a>
+    <a class="element-button" href="Nickel_2">Nickel_2</a>
+    <a class="element-button" href="Nickel_3">Nickel_3</a>
+    <a class="element-button" href="Nickel_4">Nickel_4</a>
+    <a class="element-button" href="Nickel_5">Nickel_5</a>
+    <a class="element-button" href="Nickel_6">Nickel_6</a>
+    <a class="element-button" href="Nickel_7">Nickel_7</a>
+    <a class="element-button" href="Nickel_8">Nickel_8</a>
+    <a class="element-button" href="Nickel_9">Nickel_9</a>
+    <a class="element-button" href="Nickel_10">Nickel_10</a>
+    <a class="element-button" href="Copper_0">Copper_0</a>
+    <a class="element-button" href="Copper_1">Copper_1</a>
+    <a class="element-button" href="Copper_2">Copper_2</a>
+    <a class="element-button" href="Copper_3">Copper_3</a>
+    <a class="element-button" href="Copper_4">Copper_4</a>
+    <a class="element-button" href="Copper_5">Copper_5</a>
+    <a class="element-button" href="Copper_6">Copper_6</a>
+    <a class="element-button" href="Copper_7">Copper_7</a>
+    <a class="element-button" href="Copper_8">Copper_8</a>
+    <a class="element-button" href="Zinc_0">Zinc_0</a>
+    <a class="element-button" href="Zinc_1">Zinc_1</a>
+    <a class="element-button" href="Zinc_2">Zinc_2</a>
+    <a class="element-button" href="Zinc_3">Zinc_3</a>
+    <a class="element-button" href="Zinc_4">Zinc_4</a>
+    <a class="element-button" href="Zinc_5">Zinc_5</a>
+    <a class="element-button" href="Zinc_6">Zinc_6</a>
+    <a class="element-button" href="Zinc_7">Zinc_7</a>
+    <a class="element-button" href="Zinc_8">Zinc_8</a>
+    <a class="element-button" href="Zinc_9">Zinc_9</a>
+    <a class="element-button" href="Gallium_0">Gallium_0</a>
+    <a class="element-button" href="Gallium_1">Gallium_1</a>
+    <a class="element-button" href="Gallium_2">Gallium_2</a>
+    <a class="element-button" href="Gallium_3">Gallium_3</a>
+    <a class="element-button" href="Gallium_4">Gallium_4</a>
+    <a class="element-button" href="Gallium_5">Gallium_5</a>
+    <a class="element-button" href="Gallium_6">Gallium_6</a>
+    <a class="element-button" href="Gallium_7">Gallium_7</a>
+    <a class="element-button" href="Germanium_0">Germanium_0</a>
+    <a class="element-button" href="Germanium_1">Germanium_1</a>
+    <a class="element-button" href="Germanium_2">Germanium_2</a>
+    <a class="element-button" href="Germanium_3">Germanium_3</a>
+    <a class="element-button" href="Germanium_4">Germanium_4</a>
+    <a class="element-button" href="Germanium_5">Germanium_5</a>
+    <a class="element-button" href="Arsenic_0">Arsenic_0</a>
+    <a class="element-button" href="Arsenic_1">Arsenic_1</a>
+    <a class="element-button" href="Arsenic_2">Arsenic_2</a>
+    <a class="element-button" href="Arsenic_3">Arsenic_3</a>
+    <a class="element-button" href="Selenium_0">Selenium_0</a>
+    <a class="element-button" href="Selenium_1">Selenium_1</a>
+    <a class="element-button" href="Selenium_2">Selenium_2</a>
+    <a class="element-button" href="Selenium_3">Selenium_3</a>
+    <a class="element-button" href="Selenium_4">Selenium_4</a>
+    <a class="element-button" href="Bromine_0">Bromine_0</a>
+    <a class="element-button" href="Bromine_1">Bromine_1</a>
+    <a class="element-button" href="Bromine_2">Bromine_2</a>
+    <a class="element-button" href="Krypton_0">Krypton_0</a>
+    <a class="element-button" href="Krypton_1">Krypton_1</a>
+    <a class="element-button" href="Krypton_2">Krypton_2</a>
+    <a class="element-button" href="Krypton_3">Krypton_3</a>
+    <a class="element-button" href="Rubidium_0">Rubidium_0</a>
+    <a class="element-button" href="Rubidium_1">Rubidium_1</a>
+    <a class="element-button" href="Rubidium_2">Rubidium_2</a>
+    <a class="element-button" href="Rubidium_3">Rubidium_3</a>
+    <a class="element-button" href="Rubidium_4">Rubidium_4</a>
+    <a class="element-button" href="Strontium_0">Strontium_0</a>
+    <a class="element-button" href="Strontium_1">Strontium_1</a>
+    <a class="element-button" href="Strontium_2">Strontium_2</a>
+    <a class="element-button" href="Strontium_3">Strontium_3</a>
+    <a class="element-button" href="Strontium_4">Strontium_4</a>
+    <a class="element-button" href="Yttrium_0">Yttrium_0</a>
+    <a class="element-button" href="Yttrium_1">Yttrium_1</a>
+    <a class="element-button" href="Zirconium_0">Zirconium_0</a>
+    <a class="element-button" href="Zirconium_1">Zirconium_1</a>
+    <a class="element-button" href="Zirconium_2">Zirconium_2</a>
+    <a class="element-button" href="Zirconium_3">Zirconium_3</a>
+    <a class="element-button" href="Zirconium_4">Zirconium_4</a>
+    <a class="element-button" href="Niobium_0">Niobium_0</a>
+    <a class="element-button" href="Niobium_1">Niobium_1</a>
+    <a class="element-button" href="Niobium_2">Niobium_2</a>
+    <a class="element-button" href="Niobium_3">Niobium_3</a>
+    <a class="element-button" href="Niobium_4">Niobium_4</a>
+    <a class="element-button" href="Molybdenum_0">Molybdenum_0</a>
+    <a class="element-button" href="Molybdenum_1">Molybdenum_1</a>
+    <a class="element-button" href="Molybdenum_2">Molybdenum_2</a>
+    <a class="element-button" href="Molybdenum_3">Molybdenum_3</a>
+    <a class="element-button" href="Technetium_0">Technetium_0</a>
+    <a class="element-button" href="Technetium_1">Technetium_1</a>
+    <a class="element-button" href="Technetium_2">Technetium_2</a>
+    <a class="element-button" href="Ruthenium_0">Ruthenium_0</a>
+    <a class="element-button" href="Ruthenium_1">Ruthenium_1</a>
+    <a class="element-button" href="Rhodium_0">Rhodium_0</a>
+    <a class="element-button" href="Rhodium_1">Rhodium_1</a>
+    <a class="element-button" href="Rhodium_2">Rhodium_2</a>
+    <a class="element-button" href="Rhodium_3">Rhodium_3</a>
+    <a class="element-button" href="Rhodium_4">Rhodium_4</a>
+    <a class="element-button" href="Palladium_0">Palladium_0</a>
+    <a class="element-button" href="Palladium_1">Palladium_1</a>
+    <a class="element-button" href="Palladium_2">Palladium_2</a>
+    <a class="element-button" href="Palladium_3">Palladium_3</a>
+    <a class="element-button" href="Palladium_4">Palladium_4</a>
+    <a class="element-button" href="Palladium_5">Palladium_5</a>
+    <a class="element-button" href="Silver_0">Silver_0</a>
+    <a class="element-button" href="Silver_1">Silver_1</a>
+    <a class="element-button" href="Cadmium_0">Cadmium_0</a>
+    <a class="element-button" href="Cadmium_1">Cadmium_1</a>
+    <a class="element-button" href="Cadmium_2">Cadmium_2</a>
+    <a class="element-button" href="Cadmium_3">Cadmium_3</a>
+    <a class="element-button" href="Cadmium_4">Cadmium_4</a>
+    <a class="element-button" href="Cadmium_5">Cadmium_5</a>
+    <a class="element-button" href="Indium_0">Indium_0</a>
+    <a class="element-button" href="Indium_1">Indium_1</a>
+    <a class="element-button" href="Indium_2">Indium_2</a>
+    <a class="element-button" href="Indium_3">Indium_3</a>
+    <a class="element-button" href="Indium_4">Indium_4</a>
+    <a class="element-button" href="Tin_0">Tin_0</a>
+    <a class="element-button" href="Tin_1">Tin_1</a>
+    <a class="element-button" href="Antimony">Antimony</a>
+    <a class="element-button" href="Tellurium_0">Tellurium_0</a>
+    <a class="element-button" href="Tellurium_1">Tellurium_1</a>
+    <a class="element-button" href="Iodine_0">Iodine_0</a>
+    <a class="element-button" href="Iodine_1">Iodine_1</a>
+    <a class="element-button" href="Iodine_2">Iodine_2</a>
+    <a class="element-button" href="Iodine_3">Iodine_3</a>
+    <a class="element-button" href="Xenon">Xenon</a>
+    <a class="element-button" href="Cesium_0">Cesium_0</a>
+    <a class="element-button" href="Cesium_1">Cesium_1</a>
+    <a class="element-button" href="Cesium_2">Cesium_2</a>
+    <a class="element-button" href="Barium">Barium</a>
+    <a class="element-button" href="Lanthanum_0">Lanthanum_0</a>
+    <a class="element-button" href="Lanthanum_1">Lanthanum_1</a>
+    <a class="element-button" href="Lanthanum_2">Lanthanum_2</a>
+    <a class="element-button" href="Cerium">Cerium</a>
+    <a class="element-button" href="Praseodymium">Praseodymium</a>
+    <a class="element-button" href="Neodymium">Neodymium</a>
+    <a class="element-button" href="Promethium_0">Promethium_0</a>
+    <a class="element-button" href="Promethium_1">Promethium_1</a>
+    <a class="element-button" href="Promethium_2">Promethium_2</a>
+    <a class="element-button" href="Samarium">Samarium</a>
+    <a class="element-button" href="Europium">Europium</a>
+    <a class="element-button" href="Gadolinium">Gadolinium</a>
+    <a class="element-button" href="Terbium">Terbium</a>
+    <a class="element-button" href="Dysprosium">Dysprosium</a>
+    <a class="element-button" href="Holmium">Holmium</a>
+    <a class="element-button" href="Erbium">Erbium</a>
+    <a class="element-button" href="Thulium_0">Thulium_0</a>
+    <a class="element-button" href="Thulium_1">Thulium_1</a>
+    <a class="element-button" href="Ytterbium">Ytterbium</a>
+    <a class="element-button" href="Lutetium_0">Lutetium_0</a>
+    <a class="element-button" href="Lutetium_1">Lutetium_1</a>
+    <a class="element-button" href="Hafnium_0">Hafnium_0</a>
+    <a class="element-button" href="Hafnium_1">Hafnium_1</a>
+    <a class="element-button" href="Tantalum_0">Tantalum_0</a>
+    <a class="element-button" href="Tantalum_1">Tantalum_1</a>
+    <a class="element-button" href="Tungsten_0">Tungsten_0</a>
+    <a class="element-button" href="Tungsten_1">Tungsten_1</a>
+    <a class="element-button" href="Rhenium">Rhenium</a>
+    <a class="element-button" href="Osmium_0">Osmium_0</a>
+    <a class="element-button" href="Osmium_1">Osmium_1</a>
+    <a class="element-button" href="Iridium">Iridium</a>
+    <a class="element-button" href="Platinum">Platinum</a>
+    <a class="element-button" href="Gold">Gold</a>
+    <a class="element-button" href="Mercury_0">Mercury_0</a>
+    <a class="element-button" href="Mercury_1">Mercury_1</a>
+    <a class="element-button" href="Thallium_0">Thallium_0</a>
+    <a class="element-button" href="Thallium_1">Thallium_1</a>
+    <a class="element-button" href="Lead_0">Lead_0</a>
+    <a class="element-button" href="Lead_1">Lead_1</a>
+    <a class="element-button" href="Bismuth">Bismuth</a>
+    <a class="element-button" href="Polonium">Polonium</a>
+    <a class="element-button" href="Astatine">Astatine</a>
+    <a class="element-button" href="Radon">Radon</a>
+    <a class="element-button" href="Francium">Francium</a>
+    <a class="element-button" href="Radium">Radium</a>
+    <a class="element-button" href="Actinium">Actinium</a>
+    <a class="element-button" href="Thorium">Thorium</a>
+    <a class="element-button" href="Protactinium">Protactinium</a>
+    <a class="element-button" href="Uranium">Uranium</a>
+    <a class="element-button" href="Neptunium">Neptunium</a>
+    <a class="element-button" href="Plutonium">Plutonium</a>
+    <a class="element-button" href="Americium">Americium</a>
+    <a class="element-button" href="Curium">Curium</a>
+    <a class="element-button" href="Berkelium">Berkelium</a>
+    <a class="element-button" href="Californium">Californium</a>
+    <a class="element-button" href="Einsteinium">Einsteinium</a>
+    <a class="element-button" href="Fermium">Fermium</a>
+    <a class="element-button" href="Mendelevium">Mendelevium</a>
+    <a class="element-button" href="Nobelium">Nobelium</a>
+    <a class="element-button" href="Lawrencium">Lawrencium</a>
+    <a class="element-button" href="Rutherfordium">Rutherfordium</a>
+    <a class="element-button" href="Dubnium">Dubnium</a>
+    <a class="element-button" href="Seaborgium">Seaborgium</a>
+    <a class="element-button" href="Bohrium">Bohrium</a>
+    <a class="element-button" href="Hassium">Hassium</a>
+    <a class="element-button" href="Meitnerium">Meitnerium</a>
+    <a class="element-button" href="Darmstadtium">Darmstadtium</a>
+    <a class="element-button" href="Roentgenium">Roentgenium</a>
+    <a class="element-button" href="Copernicium">Copernicium</a>
+    <a class="element-button" href="Nihonium">Nihonium</a>
+    <a class="element-button" href="Flerovium">Flerovium</a>
+    <a class="element-button" href="Moscovium">Moscovium</a>
+    <a class="element-button" href="Livermorium">Livermorium</a>
+    <a class="element-button" href="Tennessine">Tennessine</a>
+    <a class="element-button" href="Oganesson">Oganesson</a>
+  </div>
 </body>
 </html>
