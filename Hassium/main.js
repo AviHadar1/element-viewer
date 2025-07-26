@@ -12,9 +12,9 @@ function main() {
     const far = 1000;
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
-    const axisFormula = "PN[R6E0]NNPN[R6E0]NNPNNPNNPN[R6E0]NPNN[R6E0]NP";
-    const cameraDistance = parseFloat("50") || 50;
-    const title = "31";
+    const axisFormula = "PN[R3E0]NPN[R3E0]NPN[R3E0]NPN[R3E0]NPN[R3E0]NPN[R3E0]NPN[R3E0]NPN[R3E0]NPN[R3E0]NPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPN[R3E0]NPN[R3E0]NPN[R3E0]NPN[R3E0]NPN[R3E0]NPN[R3E0]NPN[R3E0]NPN[R3E0]NP";
+    const cameraDistance = parseFloat("272") || 50;
+    const title = "108";
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color('black');
