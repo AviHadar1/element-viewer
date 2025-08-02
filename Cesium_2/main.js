@@ -12,8 +12,8 @@ function main() {
     const far = 1000;
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
-    const axisFormula = "PN[R2E0]NPN[R2E0]NPN[R2E0]NPN[R2E0]NPN[R2E0]NPN[R2E0]NPN[R2E0]NPN[R2E0]NPNNPNNPNNPNNPNNPNNPNNPNNPNNPN[R2E0]NPN[R2E0]NPN[R2E0]NPN[R2E0]NPN[R2E0]NPN[R2E0]NPN[R2E0]NP";
-    const cameraDistance = parseFloat("50") || 50;
+    const axisFormula = "PN[R3E0]NPNNPN[R3E0]NPNNPN[R3E0]NPNNPN[R3E0]NPNNPN[R3E0]NPNNPNNPNNPNNPNNPNNPN[R3E0]NPNNPN[R3E0]NPNNPN[R3E0]NPNNPN[R3E0]NPNNPN[R3E0]NP";
+    const cameraDistance = parseFloat("216") || 40;
     const title = "55";
 
     const scene = new THREE.Scene();
@@ -67,26 +67,35 @@ function main() {
             const tiltDeg = parseFloat(match[2]);
             const tiltRad = tiltDeg * Math.PI / 180;
             const radius = 3.5;
+            // --- בדיקה אם אחר כך באים שני N ---
+            let offset = 0;
+            if (parts[i + 1] === 'N' && parts[i + 2] === 'N') {
+                offset = 1; // מוגדל כדי לראות שינוי ברור
+                console.log("Ring offset applied at index", i);
+            }
 
             const wrapper = new THREE.Object3D();
-            wrapper.position.z = z - 1;  // חשוב: הטבעת ממוקמת סביב אותו z, לא מזיזה את הציר
+            wrapper.position.z = z - 1 + offset;  // חשוב: הטבעת ממוקמת סביב אותו z, לא מזיזה את הציר
 
             const thisRing = new THREE.Object3D();
-            thisRing.rotation.x = tiltRad;
 
             for (let j = 0; j < count; j++) {
                 const angle = j * Math.PI * 2 / count;
-                const x = Math.cos(angle) * radius;
-                const y = Math.sin(angle) * radius;
+                const newRadius = radius * Math.cos(tiltRad);
+                const x = Math.cos(angle) * newRadius;
+                const y = Math.sin(angle) * newRadius;
+                const z_local = radius * Math.sin(tiltRad);
 
                 const neutron = createSphere(0x66ccff);
-                neutron.position.set(x, y, 0);
+                neutron.position.set(x, y, z_local);
                 thisRing.add(neutron);
 
-                const px = Math.cos(angle) * (radius + 2.2);
-                const py = Math.sin(angle) * (radius + 2.2);
+                const newRadiusP = (radius + 2.2) * Math.cos(tiltRad);
+                const px = Math.cos(angle) * newRadiusP;
+                const py = Math.sin(angle) * newRadiusP;
+                const pz_local = (radius + 2.2) * Math.sin(tiltRad);
                 const proton = createSphere(0xff9933);
-                proton.position.set(px, py, 0);
+                proton.position.set(px, py, pz_local);
                 thisRing.add(proton);
             }
 
