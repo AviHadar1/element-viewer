@@ -12,9 +12,9 @@ function main() {
     const far = 1000;
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
-    const axisFormula = "PN[R4E0]NPN[R4E0]NPN[R4E0]NPN[R4E0]NP";
+    const axisFormula = "PN[R6E0]N[R6E0]NPN[R6E0]NNP";
     const cameraDistance = parseFloat("30") || 40;
-    const title = "21";
+    const title = "Scandium_2 21";
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color('black');

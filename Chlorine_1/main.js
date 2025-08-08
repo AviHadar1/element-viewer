@@ -12,9 +12,9 @@ function main() {
     const far = 1000;
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
-    const axisFormula = "PN[R3E-90][R3E-45][R3E0][R3E45][R3E90]NP";
+    const axisFormula = "PN[R7E0]NPN[R7E0]NP";
     const cameraDistance = parseFloat("30") || 40;
-    const title = "17";
+    const title = "Chlorine_1 17";
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color('black');

@@ -14,7 +14,7 @@ function main() {
 
     const axisFormula = "PN[R8E0]NP";
     const cameraDistance = parseFloat("30") || 40;
-    const title = "10";
+    const title = "Neon 10";
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color('black');

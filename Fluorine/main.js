@@ -14,7 +14,7 @@ function main() {
 
     const axisFormula = "PN[R7E0]NNP";
     const cameraDistance = parseFloat("30") || 40;
-    const title = "9";
+    const title = "Fluorine 9";
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color('black');

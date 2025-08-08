@@ -12,9 +12,9 @@ function main() {
     const far = 1000;
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
-    const axisFormula = "PN[R5E0]NNPN[R5E0]NPN[R5E0]NPN[R5E0]NNP";
-    const cameraDistance = parseFloat("54") || 40;
-    const title = "25";
+    const axisFormula = "PN[R6E0]NPNNPN[R6E0]NPNNPNNPN[R6E0]NP";
+    const cameraDistance = parseFloat("57") || 40;
+    const title = "Manganese_2 25";
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color('black');
