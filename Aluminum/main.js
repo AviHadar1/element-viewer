@@ -12,7 +12,7 @@ function main() {
     const far = 1000;
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
-    const axisFormula = "P[R3N3E0]NNN[R8N8E0]P";
+    const axisFormula = "PNN[R3N3E0]N[R8N8E0]P";
     const cameraDistance = parseFloat("30") || 40;
     const title = "Aluminum 13";
 
@@ -55,10 +55,6 @@ function main() {
             z += 2;
         }
 
-        else if (part === 'X') {
-            z += 2;
-        }
-
         else if (part.startsWith('[R') && part.endsWith(']')) {
             const match = part.match(/\[R(\d+)N(\d+)E(-?\d+)\]/);
             if (!match) continue;
@@ -70,15 +66,23 @@ function main() {
             const radius = 2.0;
             const neutronOffset = -1.1; // מקרב את הניוטרון למרכז
 
-            let offset = 0;
-            if (parts[i + 1] === 'N') {
-                offset = 2;
+            let offset = -1;
+            if (parts[i - 1] === 'N' && parts[i - 2] === 'N') {
+                offset = -2;
                 console.log("Ring offset applied at index", i);
             }
+            //if (parts[i + 1] === 'N' || parts[i + 2] === 'N') {
+            //    offset = 2;
+            //    console.log("Ring offset applied at index", i);
+            //}
+            //if (parts[i].startsWith('[R0')) {
+            //    offset = 1;
+            //    console.log("Ring offset applied at index", i);
+            //}
 
             const wrapper = new THREE.Object3D();
             //wrapper.position.z = z - 1 + offset;
-            wrapper.position.z = z - 2 + offset;
+            wrapper.position.z = z + offset;
 
             const thisRing = new THREE.Object3D();
 
@@ -97,7 +101,7 @@ function main() {
             // ניוטרונים - טבעת פנימית
             for (let j = 0; j < neutrons; j++) {
                 const angle = j * Math.PI * 2 / neutrons;
-                const r = 1.1;
+                const r = 1.4;
                 const x = Math.cos(angle) * r * Math.cos(tiltRad);
                 const y = Math.sin(angle) * r * Math.cos(tiltRad);
                 const z_local = r * Math.sin(tiltRad);
