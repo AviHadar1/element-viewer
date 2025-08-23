@@ -12,7 +12,7 @@ function main() {
     const far = 1000;
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
-    const axisFormula = "PNN[R5N5E0]N[R8N8E0]P";
+    const axisFormula = "PN[R5N6E0]N[R8N8E0]P";
     const cameraDistance = parseFloat("30") || 40;
     const title = "Phosphorus 15";
 
@@ -66,9 +66,9 @@ function main() {
             const radius = 2.0;
             const neutronOffset = -1.1; // מקרב את הניוטרון למרכז
 
-            let offset = -1;
-            if (parts[i - 1] === 'N' && parts[i - 2] === 'N') {
-                offset = -2;
+            let offset = -2;
+            if (parts[i - 1] === 'N' && parts[i - 2] === 'P' && parts[i + 1] === 'N' && parts[i + 2] === 'P') {
+                offset = -1;
                 console.log("Ring offset applied at index", i);
             }
             //if (parts[i + 1] === 'N' || parts[i + 2] === 'N') {
