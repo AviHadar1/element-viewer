@@ -12,7 +12,7 @@ function main() {
     const far = 1000;
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
-    const axisFormula = "PNN[R2N2E0]NP";
+    const axisFormula = "PN[R2N3E0]NP";
     const cameraDistance = parseFloat("30") || 40;
     const title = "Beryllium 4";
 
