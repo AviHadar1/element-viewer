@@ -12,9 +12,9 @@ function main() {
     const far = 1000;
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
-    const axisFormula = "PN[R6E0]NPN[R6E0]NP";
+    const axisFormula = "P[R5N5E0]NNN[R8N8E0]P";
     const cameraDistance = parseFloat("30") || 40;
-    const title = "Phosphorus_1 15";
+    const title = "Phosphorus 15";
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color('black');
@@ -39,7 +39,7 @@ function main() {
     }
 
     // --- parse formula ---
-    const regex = /(P|N|X|\[R\d+E-?\d+\])/g;
+    const regex = /(P|N|X|\[R\d+N\d+E-?\d+\])/g;
     const parts = axisFormula.match(regex) || [];
     const zParts = parts.filter(p => p === 'P' || p === 'N' || p === 'X');
     let z = -((zParts.length - 1) / 2) * 2;
@@ -60,49 +60,54 @@ function main() {
         }
 
         else if (part.startsWith('[R') && part.endsWith(']')) {
-            const match = part.match(/\[R(\d+)E(-?\d+)\]/);
+            const match = part.match(/\[R(\d+)N(\d+)E(-?\d+)\]/);
             if (!match) continue;
 
-            const count = parseInt(match[1]);
-            const tiltDeg = parseFloat(match[2]);
+            const protons = parseInt(match[1]);
+            const neutrons = parseInt(match[2]);
+            const tiltDeg = parseFloat(match[3]);
             const tiltRad = tiltDeg * Math.PI / 180;
-            const radius = 3.5;
-            // --- בדיקה אם אחר כך באים שני N ---
+            const radius = 2.0;
+            const neutronOffset = -1.1; // מקרב את הניוטרון למרכז
+
             let offset = 0;
-            if (parts[i + 1] === 'N' && parts[i + 2] === 'N') {
-                offset = 1; // מוגדל כדי לראות שינוי ברור
+            if (parts[i + 1] === 'N') {
+                offset = 2;
                 console.log("Ring offset applied at index", i);
             }
 
             const wrapper = new THREE.Object3D();
-            wrapper.position.z = z - 1 + offset;  // חשוב: הטבעת ממוקמת סביב אותו z, לא מזיזה את הציר
+            //wrapper.position.z = z - 1 + offset;
+            wrapper.position.z = z - 2 + offset;
 
             const thisRing = new THREE.Object3D();
 
-            for (let j = 0; j < count; j++) {
-                const angle = j * Math.PI * 2 / count;
-                const newRadius = radius * Math.cos(tiltRad);
-                const x = Math.cos(angle) * newRadius;
-                const y = Math.sin(angle) * newRadius;
-                const z_local = radius * Math.sin(tiltRad);
+            // פרוטונים - טבעת חיצונית
+            for (let j = 0; j < protons; j++) {
+                const angle = j * Math.PI * 2 / protons;
+                const r = 3.8;
+                const x = Math.cos(angle) * r * Math.cos(tiltRad);
+                const y = Math.sin(angle) * r * Math.cos(tiltRad);
+                const z_local = r * Math.sin(tiltRad);
+                const proton = createSphere(0xff9933);
+                proton.position.set(x, y, z_local);
+                thisRing.add(proton);
+            }
 
+            // ניוטרונים - טבעת פנימית
+            for (let j = 0; j < neutrons; j++) {
+                const angle = j * Math.PI * 2 / neutrons;
+                const r = 1.1;
+                const x = Math.cos(angle) * r * Math.cos(tiltRad);
+                const y = Math.sin(angle) * r * Math.cos(tiltRad);
+                const z_local = r * Math.sin(tiltRad);
                 const neutron = createSphere(0x66ccff);
                 neutron.position.set(x, y, z_local);
                 thisRing.add(neutron);
-
-                const newRadiusP = (radius + 2.2) * Math.cos(tiltRad);
-                const px = Math.cos(angle) * newRadiusP;
-                const py = Math.sin(angle) * newRadiusP;
-                const pz_local = (radius + 2.2) * Math.sin(tiltRad);
-                const proton = createSphere(0xff9933);
-                proton.position.set(px, py, pz_local);
-                thisRing.add(proton);
             }
 
             wrapper.add(thisRing);
             ringGroup.add(wrapper);
-
-            // אין קידום z לטבעות!
         }
     }
 
