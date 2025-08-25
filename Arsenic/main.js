@@ -12,7 +12,7 @@ function main() {
     const far = 1000;
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
-    const axisFormula = "PN[R8N8E0]N[R7N8E0]PN[R0N6E0]NPN[R6N6E0]N[R8N8E0]P";
+    const axisFormula = "PN[R8N8E0]N[R7N8E0]PN[R0N3E0]N[R0N3E0]PN[R6N6E0]N[R8N8E0]P";
     const cameraDistance = parseFloat("30") || 40;
     const title = "Arsenic 33";
 
