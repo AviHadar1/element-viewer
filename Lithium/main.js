@@ -13,8 +13,8 @@ function main() {
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
     const axisFormula = "PN[R1N2E0]NP";
-    const cameraDistance = parseFloat("30") || 40;
-    const title = "Lithium 3";
+    const cameraDistance = parseFloat("45") || 40;
+    const title = "Lithium 3   Li-7";
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color('black');
@@ -66,9 +66,13 @@ function main() {
             const radius = 2.0;
             const neutronOffset = -1.1; // מקרב את הניוטרון למרכז
 
-            let offset = -1;
-            if (parts[i - 1] === 'N' && parts[i - 2] === 'N') {
-                offset = -2;
+            let offset = -2;
+            if (parts[i - 1] === 'N' && parts[i - 2] === 'P' && parts[i + 1] === 'N' && parts[i + 2] === 'P') {
+                offset = -1;
+                console.log("Ring offset applied at index", i);
+            }
+            if (parts[i - 1] === 'N' && parts[i + 1] === 'N' && parts[i + 2] === 'N') {
+                offset = -1;
                 console.log("Ring offset applied at index", i);
             }
             //if (parts[i + 1] === 'N' || parts[i + 2] === 'N') {

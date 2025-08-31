@@ -12,9 +12,9 @@ function main() {
     const far = 1000;
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
-    const axisFormula = "PN[R8N8E0][R7N6E0]N[R0N6E0][R8N8E0]P";
+    const axisFormula = "PN[R8N8E0]N[R8N8E0]PN[R8N8E0]N[R0N8E0]PN[R0N2E0]NPN[R0N8E0]N[R7N7E0]PN[R8N8E0]N[R8N8E0]P";
     const cameraDistance = parseFloat("45") || 40;
-    const title = "Manganese 25   Mn-55";
+    const title = "Iodine 53   I-127";
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color('black');
