@@ -12,9 +12,9 @@ function main() {
     const far = 1000;
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
-    const axisFormula = "PN[R2E0]NNPN[R2E0]NPN[R2E0]NPN[R2E0]NPN[R2E0]NPN[R2E0]NPN[R2E0]NPN[R2E0]NPNNPNNPNNPNNPNNPNNPNNPNNPNNPNNPN[R2E0]NPN[R2E0]NPN[R2E0]NPN[R2E0]NPN[R2E0]NPN[R2E0]NPN[R2E0]NP";
-    const cameraDistance = parseFloat("134") || 50;
-    const title = "56";
+    const axisFormula = "PN[R8N8E0]N[R8N8E0]PN[R8N8E0]N[R1N5E0]PN[R0N6E0]N[R0N6E0]PN[R1N6E0]N[R8N8E0]PN[R8N8E0]N[R8N8E0]P";
+    const cameraDistance = parseFloat("45") || 40;
+    const title = "Barium 56   Ba-137";
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color('black');
@@ -39,7 +39,7 @@ function main() {
     }
 
     // --- parse formula ---
-    const regex = /(P|N|X|\[R\d+E-?\d+\])/g;
+    const regex = /(P|N|X|\[R\d+N\d+E-?\d+\])/g;
     const parts = axisFormula.match(regex) || [];
     const zParts = parts.filter(p => p === 'P' || p === 'N' || p === 'X');
     let z = -((zParts.length - 1) / 2) * 2;
@@ -55,45 +55,67 @@ function main() {
             z += 2;
         }
 
-        else if (part === 'X') {
-            z += 2;
-        }
-
         else if (part.startsWith('[R') && part.endsWith(']')) {
-            const match = part.match(/\[R(\d+)E(-?\d+)\]/);
+            const match = part.match(/\[R(\d+)N(\d+)E(-?\d+)\]/);
             if (!match) continue;
 
-            const count = parseInt(match[1]);
-            const tiltDeg = parseFloat(match[2]);
+            const protons = parseInt(match[1]);
+            const neutrons = parseInt(match[2]);
+            const tiltDeg = parseFloat(match[3]);
             const tiltRad = tiltDeg * Math.PI / 180;
-            const radius = 3.5;
+            const radius = 2.0;
+            const neutronOffset = -1.1; // מקרב את הניוטרון למרכז
+
+            let offset = -2;
+            if (parts[i - 1] === 'N' && parts[i - 2] === 'P' && parts[i + 1] === 'N' && parts[i + 2] === 'P') {
+                offset = -1;
+                console.log("Ring offset applied at index", i);
+            }
+            if (parts[i - 1] === 'N' && parts[i + 1] === 'N' && parts[i + 2] === 'N') {
+                offset = -1;
+                console.log("Ring offset applied at index", i);
+            }
+            //if (parts[i + 1] === 'N' || parts[i + 2] === 'N') {
+            //    offset = 2;
+            //    console.log("Ring offset applied at index", i);
+            //}
+            //if (parts[i].startsWith('[R0')) {
+            //    offset = 1;
+            //    console.log("Ring offset applied at index", i);
+            //}
 
             const wrapper = new THREE.Object3D();
-            wrapper.position.z = z - 1;  // חשוב: הטבעת ממוקמת סביב אותו z, לא מזיזה את הציר
+            //wrapper.position.z = z - 1 + offset;
+            wrapper.position.z = z + offset;
 
             const thisRing = new THREE.Object3D();
-            thisRing.rotation.x = tiltRad;
 
-            for (let j = 0; j < count; j++) {
-                const angle = j * Math.PI * 2 / count;
-                const x = Math.cos(angle) * radius;
-                const y = Math.sin(angle) * radius;
-
-                const neutron = createSphere(0x66ccff);
-                neutron.position.set(x, y, 0);
-                thisRing.add(neutron);
-
-                const px = Math.cos(angle) * (radius + 2.2);
-                const py = Math.sin(angle) * (radius + 2.2);
+            // פרוטונים - טבעת חיצונית
+            for (let j = 0; j < protons; j++) {
+                const angle = j * Math.PI * 2 / protons;
+                const r = 3.8;
+                const x = Math.cos(angle) * r * Math.cos(tiltRad);
+                const y = Math.sin(angle) * r * Math.cos(tiltRad);
+                const z_local = r * Math.sin(tiltRad);
                 const proton = createSphere(0xff9933);
-                proton.position.set(px, py, 0);
+                proton.position.set(x, y, z_local);
                 thisRing.add(proton);
+            }
+
+            // ניוטרונים - טבעת פנימית
+            for (let j = 0; j < neutrons; j++) {
+                const angle = j * Math.PI * 2 / neutrons;
+                const r = 1.4;
+                const x = Math.cos(angle) * r * Math.cos(tiltRad);
+                const y = Math.sin(angle) * r * Math.cos(tiltRad);
+                const z_local = r * Math.sin(tiltRad);
+                const neutron = createSphere(0x66ccff);
+                neutron.position.set(x, y, z_local);
+                thisRing.add(neutron);
             }
 
             wrapper.add(thisRing);
             ringGroup.add(wrapper);
-
-            // אין קידום z לטבעות!
         }
     }
 

@@ -12,9 +12,9 @@ function main() {
     const far = 1000;
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
-    const axisFormula = "PN[R8N8E0]N[R8N8E0]PN[R8N8E0]N[R4N8E0]PN[R0N7E0]N[R0N0E0]PN[R0N0E0]N[R0N7E0]PN[R4N7E0]N[R8N8E0]PN[R8N8E0]N[R8N8E0]P";
+    const axisFormula = "PN[R8N8E0]N[R8N8E0]PN[R8N8E0]N[R7N8E0]PN[R0N7E0]N[R0N4E0]PN[R0N5E0]N[R0N7E0]PN[R6N8E0]N[R8N8E0]PN[R8N8E0]N[R8N8E0]P";
     const cameraDistance = parseFloat("45") || 40;
-    const title = "Europium 63   Eu-152";
+    const title = "Erbium 68   Er-167";
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color('black');
