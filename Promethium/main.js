@@ -12,8 +12,8 @@ function main() {
     const far = 1000;
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
-    const axisFormula = "PN[R8N8E0]N[R8N8E0]PN[R8N8E0]N[R4N6E0]PN[R0N7E0]N[R0N7E0]PN[R3N6E0]N[R8N8E0]PN[R8N8E0]N[R8N8E0]P";
-    const cameraDistance = parseFloat("45") || 40;
+    const axisFormula = "PN[R8N8E-1]N[R8N8E-0.3]PN[R8N8E0.4]N[R4N6E1]PN[R0N7E0]N[R0N7E0]PN[R3N6E-1]N[R8N8E-0.4]PN[R8N8E0.3]N[R8N8E1]P";
+    const cameraDistance = parseFloat("40") || 40;
     const title = "Promethium 61   Pm-145";
 
     const scene = new THREE.Scene();
@@ -39,10 +39,18 @@ function main() {
     }
 
     // --- parse formula ---
-    const regex = /(P|N|X|\[R\d+N\d+E-?\d+\])/g;
+    const regex = /(P|N|X|\[R\d+N\d+E-?\d+(?:\.\d+)?\])/g;
     const parts = axisFormula.match(regex) || [];
+
+    // כל תו צירי (P/N/X) מקבל צעד Z=2
     const zParts = parts.filter(p => p === 'P' || p === 'N' || p === 'X');
     let z = -((zParts.length - 1) / 2) * 2;
+
+    // עוזרים בטוחים לאינדקסים ולזיהוי
+    const get = (idx) => (idx >= 0 && idx < parts.length ? parts[idx] : '');
+    const isP = (p) => p === 'P';
+    const isN = (p) => p === 'N';
+    const isRing = (p) => typeof p === 'string' && p.startsWith('[R') && p.endsWith(']');
 
     for (let i = 0; i < parts.length; i++) {
         const part = parts[i];
@@ -52,45 +60,44 @@ function main() {
             const sphere = createSphere(color);
             sphere.position.set(0, 0, z);
             centralGroup.add(sphere);
-            z += 2;
+            z += 2; // צעד לאורך הציר
         }
 
-        else if (part.startsWith('[R') && part.endsWith(']')) {
-            const match = part.match(/\[R(\d+)N(\d+)E(-?\d+)\]/);
+        else if (isRing(part)) {
+            const match = part.match(/\[R(\d+)N(\d+)E(-?\d+(?:\.\d+)?)\]/);
             if (!match) continue;
 
-            const protons = parseInt(match[1]);
-            const neutrons = parseInt(match[2]);
-            const tiltDeg = parseFloat(match[3]);
-            const tiltRad = tiltDeg * Math.PI / 180;
-            const radius = 2.0;
-            const neutronOffset = -1.1; // מקרב את הניוטרון למרכז
+            const protons = parseInt(match[1], 10);
+            const neutrons = parseInt(match[2], 10);
+            const zOffset = parseFloat(match[3]); // E משמש כהסטה בציר Z
+            const tiltRad = 0; // אם תרצה להחזיר הטיה בזווית – נעדכן כאן
 
+            // חישוב offset בסיסי בהקשר לפורמולה
             let offset = -2;
-            if (parts[i - 1] === 'N' && parts[i - 2] === 'P' && parts[i + 1] === 'N' && parts[i + 2] === 'P') {
-                offset = -1;
-                console.log("Ring offset applied at index", i);
-            }
-            if (parts[i - 1] === 'N' && parts[i + 1] === 'N' && parts[i + 2] === 'N') {
-                offset = -1;
-                console.log("Ring offset applied at index", i);
-            }
-            //if (parts[i + 1] === 'N' || parts[i + 2] === 'N') {
-            //    offset = 2;
-            //    console.log("Ring offset applied at index", i);
-            //}
-            //if (parts[i].startsWith('[R0')) {
-            //    offset = 1;
-            //    console.log("Ring offset applied at index", i);
-            //}
+            const prev2 = get(i - 2), prev1 = get(i - 1), next1 = get(i + 1), next2 = get(i + 2);
 
+            if (isN(prev1) && isP(prev2) && isN(next1) && isP(next2)) {
+                offset = -1;
+                // console.log("Offset case P N [R] N P @", i);
+            } else if (isN(prev1) && isP(prev2) && isRing(next1)) {
+                offset = -3.5;
+                // console.log("Offset case P N [R] [R] @", i);
+            } else if (isRing(prev1) && isP(next1)) {
+                offset = -0.5;
+                // console.log("Offset case [R] P @", i);
+            }
+
+            // wrapper: מיקום בסיסי של החוגים
             const wrapper = new THREE.Object3D();
-            //wrapper.position.z = z - 1 + offset;
             wrapper.position.z = z + offset;
 
+            // thisRing: אוסף כל החלקים של החוג
             const thisRing = new THREE.Object3D();
 
-            // פרוטונים - טבעת חיצונית
+            // --- פרוטונים: טבעת היקפית (מוזזת ב-E לאורך Z) ---
+            const outerRing = new THREE.Object3D();
+            outerRing.position.z += zOffset; // כאן נכנס ה-E כהזזה יחסית
+
             for (let j = 0; j < protons; j++) {
                 const angle = j * Math.PI * 2 / protons;
                 const r = 3.8;
@@ -99,10 +106,12 @@ function main() {
                 const z_local = r * Math.sin(tiltRad);
                 const proton = createSphere(0xff9933);
                 proton.position.set(x, y, z_local);
-                thisRing.add(proton);
+                outerRing.add(proton);
             }
+            thisRing.add(outerRing);
 
-            // ניוטרונים - טבעת פנימית
+            // --- ניוטרונים: טבעת פנימית (ללא הזחה ב-E) ---
+            const innerRing = new THREE.Object3D();
             for (let j = 0; j < neutrons; j++) {
                 const angle = j * Math.PI * 2 / neutrons;
                 const r = 1.4;
@@ -111,8 +120,9 @@ function main() {
                 const z_local = r * Math.sin(tiltRad);
                 const neutron = createSphere(0x66ccff);
                 neutron.position.set(x, y, z_local);
-                thisRing.add(neutron);
+                innerRing.add(neutron);
             }
+            thisRing.add(innerRing);
 
             wrapper.add(thisRing);
             ringGroup.add(wrapper);
@@ -120,7 +130,7 @@ function main() {
     }
 
     // --- TITLE OVERLAY ---
-    if (title.trim()) {
+    if (title && title.trim()) {
         const div = document.createElement('div');
         div.style.position = 'absolute';
         div.style.top = '10px';
