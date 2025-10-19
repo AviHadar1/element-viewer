@@ -12,12 +12,12 @@ function main() {
     const far = 1000;
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
-    const axisFormula = "PN[R8N8E-1]N[R7N8E1]PN[R0N4E0]N[R0N3E0]PN[R7N8E-1]N[R8N8E1]P";
+    const axisFormula = "PN[R8N8E-1F12]N[R7N8E1F12]PN[R0N4E0F0]N[R0N3E0F0]PN[R7N8E-1F12]N[R8N8E1F12]P";
     const cameraDistance = parseFloat("35") || 40;
     const title = "Selenium 34   Se-79";
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color('black');
+    scene.background = new THREE.Color('white');
 
     const light = new THREE.DirectionalLight(0xffffff, 1);
     light.position.set(5, 5, 5);
@@ -38,15 +38,25 @@ function main() {
         return new THREE.Mesh(geometry, material);
     }
 
-    // --- parse formula ---
-    const regex = /(P|N|X|\[R\d+N\d+E-?\d+(?:\.\d+)?\])/g;
+    function createFieldDisk(innerR, outerR, color = 0x00aaff, opacity = 0.15) {
+        const geometry = new THREE.RingGeometry(innerR, outerR, 64);
+        const material = new THREE.MeshBasicMaterial({
+            color,
+            side: THREE.DoubleSide,
+            transparent: true,
+            opacity
+        });
+        const disk = new THREE.Mesh(geometry, material);
+        //disk.rotation.x = Math.PI / 2;
+        return disk;
+    }
+
+    const regex = /(P|N|X|\[R\d+N\d+E-?\d+(?:\.\d+)?F?\d*\])/g;
     const parts = axisFormula.match(regex) || [];
 
-    // כל תו צירי (P/N/X) מקבל צעד Z=2
     const zParts = parts.filter(p => p === 'P' || p === 'N' || p === 'X');
     let z = -((zParts.length - 1) / 2) * 2;
 
-    // עוזרים בטוחים לאינדקסים ולזיהוי
     const get = (idx) => (idx >= 0 && idx < parts.length ? parts[idx] : '');
     const isP = (p) => p === 'P';
     const isN = (p) => p === 'N';
@@ -60,43 +70,38 @@ function main() {
             const sphere = createSphere(color);
             sphere.position.set(0, 0, z);
             centralGroup.add(sphere);
-            z += 2; // צעד לאורך הציר
+
+            if (part === 'P') {
+                const fieldDisk = createFieldDisk(2.5, 5.0, 0xffaa00, 0.12);
+                fieldDisk.position.set(0, 0, z);
+                centralGroup.add(fieldDisk);
+            }
+            z += 2;
         }
 
         else if (isRing(part)) {
-            const match = part.match(/\[R(\d+)N(\d+)E(-?\d+(?:\.\d+)?)\]/);
+            const match = part.match(/\[R(\d+)N(\d+)E(-?\d+(?:\.\d+)?)F?(\d*)\]/);
             if (!match) continue;
 
-            const protons = parseInt(match[1], 10);
-            const neutrons = parseInt(match[2], 10);
-            const zOffset = parseFloat(match[3]); // E משמש כהסטה בציר Z
-            const tiltRad = 0; // אם תרצה להחזיר הטיה בזווית – נעדכן כאן
+            const protons = parseInt(match[1]);
+            const neutrons = parseInt(match[2]);
+            const zOffset = parseFloat(match[3]);
+            const fieldOuter = match[4] ? parseFloat(match[4]) : 0;
+            const tiltRad = 0;
 
-            // חישוב offset בסיסי בהקשר לפורמולה
             let offset = -2;
             const prev2 = get(i - 2), prev1 = get(i - 1), next1 = get(i + 1), next2 = get(i + 2);
+            if (isN(prev1) && isP(prev2) && isN(next1) && isP(next2)) offset = -1;
+            else if (isN(prev1) && isP(prev2) && isRing(next1)) offset = -3.5;
+            else if (isRing(prev1) && isP(next1)) offset = -0.5;
 
-            if (isN(prev1) && isP(prev2) && isN(next1) && isP(next2)) {
-                offset = -1;
-                // console.log("Offset case P N [R] N P @", i);
-            } else if (isN(prev1) && isP(prev2) && isRing(next1)) {
-                offset = -3.5;
-                // console.log("Offset case P N [R] [R] @", i);
-            } else if (isRing(prev1) && isP(next1)) {
-                offset = -0.5;
-                // console.log("Offset case [R] P @", i);
-            }
-
-            // wrapper: מיקום בסיסי של החוגים
             const wrapper = new THREE.Object3D();
             wrapper.position.z = z + offset;
 
-            // thisRing: אוסף כל החלקים של החוג
             const thisRing = new THREE.Object3D();
 
-            // --- פרוטונים: טבעת היקפית (מוזזת ב-E לאורך Z) ---
             const outerRing = new THREE.Object3D();
-            outerRing.position.z += zOffset; // כאן נכנס ה-E כהזזה יחסית
+            outerRing.position.z += zOffset;
 
             for (let j = 0; j < protons; j++) {
                 const angle = j * Math.PI * 2 / protons;
@@ -108,9 +113,16 @@ function main() {
                 proton.position.set(x, y, z_local);
                 outerRing.add(proton);
             }
+
+            if (fieldOuter > 0) {
+                const r_inner = 4.8;
+                const r_outer = fieldOuter;
+                const fieldDisk = createFieldDisk(r_inner, r_outer, 0x00ffff, 0.10);
+                outerRing.add(fieldDisk);
+            }
+
             thisRing.add(outerRing);
 
-            // --- ניוטרונים: טבעת פנימית (ללא הזחה ב-E) ---
             const innerRing = new THREE.Object3D();
             for (let j = 0; j < neutrons; j++) {
                 const angle = j * Math.PI * 2 / neutrons;
@@ -129,7 +141,6 @@ function main() {
         }
     }
 
-    // --- TITLE OVERLAY ---
     if (title && title.trim()) {
         const div = document.createElement('div');
         div.style.position = 'absolute';
@@ -143,7 +154,6 @@ function main() {
         document.body.appendChild(div);
     }
 
-    // --- CONTROL TIME ---
     let paused = false;
     let accumulatedTime = 0;
     let lastFrameTime = null;
@@ -159,9 +169,7 @@ function main() {
     function render(currentTime) {
         if (paused) return;
 
-        if (lastFrameTime === null) {
-            lastFrameTime = currentTime;
-        }
+        if (lastFrameTime === null) lastFrameTime = currentTime;
 
         const delta = currentTime - lastFrameTime;
         lastFrameTime = currentTime;
