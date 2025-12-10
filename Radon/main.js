@@ -12,9 +12,9 @@ function main() {
     const far = 1000;
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
-    const axisFormula = "PN[R8N8E-1F12][R8N8E0F12][R8N8E1F12]NPN[R8N8E0F12][R5N5E1F12]NPN[R0N14E-1F0][R4N13E0F0][R0N14E1F0]NPN[R5N5E-1F12][R8N8E0F12]NPN[R8N8E-1F12][R8N8E0F12][R8N8E1F12";
+    const axisFormula = "PN[R8N8E-1F12][R8N8E0F12][R8N8E1F12]NPN[R8N8E0F12][R8N8E1F12]NPN[R0N15E-1F0][R0N16E0F0][R0N15E1F0]NPN[R8N8E-1F12][R8N8E0F12]NPN[R8N8E-1F12][R8N8E0F12][R8N8E1F12]NP";
     const cameraDistance = parseFloat("50") || 40;
-    const title = "Polonium 84";
+    const title = "Radon 86";
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color('white');

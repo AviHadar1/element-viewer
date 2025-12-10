@@ -12,7 +12,7 @@ function main() {
     const far = 1000;
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
-    const axisFormula = "PN[R8N8E-1F12][R8N8E0F12][R8N8E1F12]NPN[R8N8E0F12][R4N4E1F12]NPN[R0N14E-1F0][R7N15E0F0][R0N14E1F0]NPN[R4N4E-1F12][R8N8E0F12]NPN[R8N8E-1F12][R8N8E0F12][R8N8E1F12]NP";
+    const axisFormula = "PN[R8N8E-1F12][R8N8E0F12][R8N8E1F12]NPN[R8N8E0F12][R5N5E1F12]NPN[R0N14E-1F0][R5N13E0F0][R0N14E1F0]NPN[R5N5E-1F12][R8N8E0F12]NPN[R8N8E-1F12][R8N8E0F12][R8N8E1F";
     const cameraDistance = parseFloat("50") || 40;
     const title = "Astatine 85";
 
