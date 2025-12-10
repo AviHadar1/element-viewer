@@ -12,9 +12,9 @@ function main() {
     const far = 1000;
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
-    const axisFormula = "PN[R8N8E-1F12][R8N8E0F12][R8N8E1F12]NPN[R8N8E0F12][R4N4E1F12]NPN[R0N12E-1F0][R1N12E0F0][R0N12E1F0]NPN[R4N4E-1F12][R8N8E0F12]NPN[R8N8E-1F12][R8N8E0F12][R8N8E1F12]NP";
+    const axisFormula = "PN[R8N8E-1F12][R8N8E0F12][R8N8E1F12]NPN[R8N8E0F12][R4N4E1F12]NPN[R0N15E-1F0][R4N14E0F0][R0N15E1F0]NPN[R4N4E-1F12][R8N8E0F12]NPN[R8N8E-1F12][R8N8E0F12][R8N8E1F12]NP";
     const cameraDistance = parseFloat("50") || 40;
-    const title = "Gold 79";
+    const title = "Lead 82";
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color('white');
