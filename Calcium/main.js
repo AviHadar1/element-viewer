@@ -12,9 +12,9 @@ function main() {
     const far = 1000;
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
-    const axisFormula = "PN[R8N8E-1F12][R2N2E0F12][R8N8E1F12]NP";
+    const axisFormula = "PN[R8N8E-1F8][R2N4E0F8][R8N8E1F8]NP";
     const cameraDistance = parseFloat("30") || 40;
-    const title = "Calcium 20";
+    const title = "Calcium Ca-40";
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color('white');
