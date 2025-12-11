@@ -12,9 +12,9 @@ function main() {
     const far = 1000;
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
-    const axisFormula = "PN[R8N8E-1F12]N[R7N8E1F12]PN[R0N4E0F0]N[R0N3E0F0]PN[R7N8E-1F12]N[R8N8E1F12]P";
-    const cameraDistance = parseFloat("35") || 40;
-    const title = "Selenium 34   Se-79";
+    const axisFormula = "PN[R8N8E-1F8][R4N4E0F8][R0N0E1F8]NPN[R0N4E0F8][R6N7E0F8][R0N4E1F0]NPN[R0N0E-1F8][R4N4E0F8][R8N8E1F8]NP";
+    const cameraDistance = parseFloat("30") || 40;
+    const title = "Selenium Se-79";
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color('white');
@@ -89,11 +89,11 @@ function main() {
             const fieldOuter = match[4] ? parseFloat(match[4]) : 0;
             const tiltRad = 0;
 
-            let offset = -2;
-            const prev2 = get(i - 2), prev1 = get(i - 1), next1 = get(i + 1), next2 = get(i + 2);
-            if (isN(prev1) && isP(prev2) && isN(next1) && isP(next2)) offset = -1;
-            else if (isN(prev1) && isP(prev2) && isRing(next1)) offset = -3.5;
-            else if (isRing(prev1) && isP(next1)) offset = -0.5;
+            let offset = zOffset-1;
+            //const prev2 = get(i - 2), prev1 = get(i - 1), next1 = get(i + 1), next2 = get(i + 2);
+            //if (isN(prev1) && isP(prev2) && isN(next1) && isP(next2)) offset = -1;
+            //else if (isN(prev1) && isP(prev2) && isRing(next1)) offset = 0;
+            //else if (isRing(prev1) && isN(next1)) offset = -3;
 
             const wrapper = new THREE.Object3D();
             wrapper.position.z = z + offset;
@@ -105,7 +105,7 @@ function main() {
 
             for (let j = 0; j < protons; j++) {
                 const angle = j * Math.PI * 2 / protons;
-                const r = 3.8;
+                const r = 4.8;
                 const x = Math.cos(angle) * r * Math.cos(tiltRad);
                 const y = Math.sin(angle) * r * Math.cos(tiltRad);
                 const z_local = r * Math.sin(tiltRad);

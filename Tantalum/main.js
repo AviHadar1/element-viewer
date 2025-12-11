@@ -12,9 +12,9 @@ function main() {
     const far = 1000;
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
-    const axisFormula = "PN[R8N8E-1F8][R8N8E0F8][R8N8E1F8]NPN[R0N7E0F8][R0N8E0F8][R0N7E1F0]NPN[R8N8E-1F8][R8N8E0F8][R8N8E1F8]NP";
-    const cameraDistance = parseFloat("35") || 40;
-    const title = "Tellurium Te-128";
+    const axisFormula = "PN[R8N8E-1F8][R8N8E0F8][R8N8E1F8]NPN[R8N8E0F8][R0N0E1F8]NPN[R0N11E-1F0][R3N12E0F0][R0N11E1F0]NPN[R0N0E-1F8][R8N8E0F8]NPN[R8N8E-1F8][R8N8E0F8][R8N8E1F8]NP";
+    const cameraDistance = parseFloat("45") || 40;
+    const title = "Tantalum Ta-181";
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color('white');
