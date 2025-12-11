@@ -12,9 +12,9 @@ function main() {
     const far = 1000;
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
 
-    const axisFormula = "PN[R8N8E-1F12][R8N8E0F12][R8N8E1F12]NPN[R8N8E0F12][R4N4E1F12]NPN[R0N13E-1F0][R2N14E0F0][R0N13E1F0]NPN[R4N4E-1F12][R8N8E0F12]NPN[R8N8E-1F12][R8N8E0F12][R8N8E1F12]NP";
-    const cameraDistance = parseFloat("50") || 40;
-    const title = "Mercury 80";
+    const axisFormula = "PN[R8N8E-1F8][R8N8E0F8][R8N8E1F8]NPN[R8N8E0F8][R4N4E1F8]NPN[R0N13E-1F0][R2N14E0F0][R0N13E1F0]NPN[R4N4E-1F8][R8N8E0F8]NPN[R8N8E-1F8][R8N8E0F8][R8N8E1F8]NP";
+    const cameraDistance = parseFloat("45") || 40;
+    const title = "Mercury Hg-202";
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color('white');
